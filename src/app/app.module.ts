@@ -8,6 +8,7 @@ import { SignantService } from './services/signant.service';
 import { AppRoutingModule } from './app-routing.module';
 import { FormDataService } from './services/form-data.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, SignatureFormComponent, SignatureFormComponent],
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   bootstrap: [AppComponent],
 
