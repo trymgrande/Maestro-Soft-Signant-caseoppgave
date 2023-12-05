@@ -6,8 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class SignantService {
-  private signantApiUrl =
-    'http://tempuri.org/IPostingsService/CreateSignPosting';
+  // private signantApiUrl = 'http://tempuri.org/IPostingsService/CreateSignPosting';
 
   constructor(private http: HttpClient) {}
 
@@ -21,8 +20,8 @@ export class SignantService {
     // consumerOrderOrgNo: string,
     // consumerOrderOrgName: string,
     // consumerOrderInvoiceInfo: string,
-    title: 'Test Signature Posting',
-    description: 'This is a test signature posting. For testing purposes only!',
+    title: string,
+    description: string,
     activeTo: Date,
     willBeDeletedDateTime: Date,
     useWidget: boolean,
@@ -34,30 +33,6 @@ export class SignantService {
     autoActivate: boolean,
     senderName: string
   ) {
-    const postData = {
-      DistributorID: distributorID,
-      AccessCode: accessCode,
-      // DistributorSystemID: distributorSystemID,
-      // ConsumerOrgNo: consumerOrgNo,
-      // ConsumerName: consumerName,
-      // ConsumerInvoiceInfo: consumerInvoiceInfo,
-      // ConsumerOrderOrgNo: consumerOrderOrgNo,
-      // ConsumerOrderOrgName: consumerOrderOrgName,
-      // ConsumerOrderInvoiceInfo: consumerOrderInvoiceInfo,
-      Title: title,
-      Description: description,
-      ActiveTo: activeTo,
-      WillBeDeletedDateTime: willBeDeletedDateTime,
-      UseWidget: useWidget,
-      UseWidgetOnAllPages: useWidgetOnAllPages,
-      // WidgetLocationDirection: widgetLocationDirection,
-      PostingAdmins: postingAdmins,
-      Recipients: recipients,
-      Attachments: attachments,
-      AutoActivate: autoActivate,
-      SenderName: senderName,
-    };
-
     const soapRequest = `
     <soapenv:Envelope
       xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -121,18 +96,108 @@ export class SignantService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'text/xml',
-      SOAPAction: 'http://tempuri.org/IPostingsService/CreateSignPosting',
+      SOAPAction: 'CreateSignPosting',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST',
     });
 
+    const options = { headers: headers };
+
     return this.http
-      .post('https://test3.signant.no/WS/V1/PostingsService.svc', soapRequest, {
-        headers,
-      })
-      .subscribe((response) => {
-        console.log('SOAP Response:', response);
-      });
+      .post(
+        'https://test3.signant.no/WS/V1/PostingsService.svc',
+        soapRequest,
+        options
+      )
+      .subscribe(
+        (response) => {
+          console.log('SOAP Response:', response);
+          window.alert('Success: Signature posting created successfully.');
+        },
+        (error) => {
+          console.error('SOAP Error:', error);
+          window.alert(
+            'Error: Signature posting was not created successfully.'
+          );
+        }
+      );
+  }
+
+  getPostingStatus(
+    distributorID: string,
+    accessCode: string,
+    postingID: number
+  ): Observable<any> {
+    const soapRequest = `
+      <soapenv:Envelope
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:tem="http://tempuri.org/"
+      >
+        <soapenv:Header/>
+        <soapenv:Body>
+          <tem:GetPostingStatus>
+            <tem:DistributorID>${distributorID}</tem:DistributorID>
+            <tem:AccessCode>${accessCode}</tem:AccessCode>
+            <tem:PostingID>${postingID}</tem:PostingID>
+          </tem:GetPostingStatus>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    `;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/xml',
+      SOAPAction: 'GetPostingStatus',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST',
+    });
+
+    const options = { headers: headers };
+
+    return this.http.post(
+      'https://test3.signant.no/WS/V1/PostingsService.svc',
+      soapRequest,
+      options
+    );
+  }
+
+  downloadAttachment(
+    distributorID: string,
+    accessCode: string,
+    postingID: number
+  ): Observable<any> {
+    const soapRequest = `
+      <soapenv:Envelope
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:tem="http://tempuri.org/"
+      >
+        <soapenv:Header/>
+        <soapenv:Body>
+          <tem:DownloadAttachment>
+            <tem:DistributorID>${distributorID}</tem:DistributorID>
+            <tem:AccessCode>${accessCode}</tem:AccessCode>
+            <tem:PostingID>${postingID}</tem:PostingID>
+          </tem:DownloadAttachment>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    `;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/xml',
+      SOAPAction: 'DownloadAttachment',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST',
+    });
+
+    const options = { headers: headers };
+
+    return this.http.post(
+      'https://test3.signant.no/WS/V1/PostingsService.svc',
+      soapRequest,
+      options
+    );
   }
 }
+
 interface PostingAdmin {
   Email: string;
   MobileNumber: string;

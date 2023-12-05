@@ -5,13 +5,22 @@ import { SignatureFormModel } from '../models/form.model';
   providedIn: 'root',
 })
 export class FormDataService {
-  private formData: SignatureFormModel | null = null;
+  private static formData: SignatureFormModel = {
+    recipientName: '',
+    recipientEmail: '',
+    message: '',
+    pdfDocument: null,
+  };
 
   setFormData(data: SignatureFormModel) {
-    this.formData = { ...data };
+    FormDataService.formData = { ...data };
   }
 
-  getFormData(): SignatureFormModel | null {
-    return this.formData;
+  getFormData(): SignatureFormModel {
+    return FormDataService.formData;
+  }
+
+  setPdfDocument(pdfDocument: any) {
+    FormDataService.formData.pdfDocument = pdfDocument;
   }
 }

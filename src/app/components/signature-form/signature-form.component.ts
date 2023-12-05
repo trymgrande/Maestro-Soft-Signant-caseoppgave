@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignatureFormModel } from '../../models/form.model';
 import { FormDataService } from '../../services/form-data.service';
 import { SignantService } from '../../services/signant.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signature-form',
@@ -15,7 +16,8 @@ export class SignatureFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private formDataService: FormDataService,
-    private signantService: SignantService
+    private signantService: SignantService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,28 +29,24 @@ export class SignatureFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.signatureForm.valid) {
-      // const pdfDocument: File = this.signatureForm.get('document')?.value;
-      // const reader = new FileReader(); // @ts-ignore
-      // const binaryData = reader.onload = (event) => {return event.target.result as ArrayBuffer};
       const formData: SignatureFormModel = {
         recipientName: this.signatureForm.get('recipientName')?.value,
         recipientEmail: this.signatureForm.get('recipientEmail')?.value,
-        message: this.signatureForm.get('message')?.value,
-        pdfDocument: this.signatureForm.get('document')?.value,
+        message: this.signatureForm.get('message')?.value, //@ts-ignore
+        pdfDocument: this.formDataService.getFormData()?.pdfDocument,
       };
 
-      // Store the form data using the service
+      // store form data for later use
       this.formDataService.setFormData(formData);
       console.log(formData);
 
-      // API call here
+      // prepare for signature posting creation request
       const distributorID = 'DEV_WSTEST';
       const accessCode = 'DEVACCESSCODE';
       const title = 'Test Signature Posting';
-      const description =
-        'This is a test signature posting. For testing purposes only!';
+      const description = this.formDataService.getFormData().message;
       const activeTo = new Date('2023-12-31T23:59:59');
       const willBeDeletedDateTime = new Date('2023-12-31T23:59:59');
       const useWidget = true;
@@ -64,8 +62,8 @@ export class SignatureFormComponent implements OnInit {
       ];
       const recipients = [
         {
-          Name: 'Trym Grande',
-          Email: 'trym.grande@gmail.com',
+          Name: this.formDataService.getFormData().recipientName,
+          Email: this.formDataService.getFormData().recipientEmail,
           MobileNumber: '40475830',
           NotifyByEmail: true,
         },
@@ -75,14 +73,13 @@ export class SignatureFormComponent implements OnInit {
         {
           File: file,
           FileName: 'mock_file_name',
-          Description: 'mock_file_description',
+          Description: description,
           ActionType: 'Sign',
         },
       ]; // TODO get actual file name
       const autoActivate = false;
       const senderName = 'Trym Grande';
-      console.log('calling API');
-      // call here
+
       this.signantService.createSignaturePosting(
         distributorID,
         accessCode,
@@ -99,8 +96,6 @@ export class SignatureFormComponent implements OnInit {
         senderName
       );
 
-      console.log('API called');
-
       // reset the form after submission
       this.signatureForm.reset();
     }
@@ -111,7 +106,20 @@ export class SignatureFormComponent implements OnInit {
     const file = fileInput.files && fileInput.files[0];
 
     if (file) {
-      console.log(file);
+      const reader = new FileReader();
+      reader.onload = (fileEvent) => {
+        if (fileEvent.target) {
+          const binaryData = fileEvent.target.result as ArrayBuffer;
+          console.log(binaryData);
+          this.formDataService.setPdfDocument(binaryData);
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']);
   }
 }
