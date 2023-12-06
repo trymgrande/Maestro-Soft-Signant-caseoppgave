@@ -3,4 +3,5 @@ export class SignatureFormModel {
   recipientEmail: string = '';
   message: string = '';
   pdfDocument: File | null = null;
+  PostingID?: number;
 }

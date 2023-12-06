@@ -1,5 +1,7 @@
 <div>
-  <button (click)="navigateToSignatureForm()">Go to Signature Form</button>
+  <button (click)="navigateToSignatureForm()">
+    Create New Signature Posting
+  </button>
   <button (click)="getPostingStatus()">Get Posting Status</button>
   <button (click)="downloadFile()" [disabled]="postingStatus !== 'Completed'">
     Download Signed PDF

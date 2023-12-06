@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormDataService } from './form-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SignantService {
   // private signantApiUrl = 'http://tempuri.org/IPostingsService/CreateSignPosting';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private formDataService: FormDataService
+  ) {}
 
   createSignaturePosting(
     distributorID: string,
@@ -110,9 +114,12 @@ export class SignantService {
         options
       )
       .subscribe(
-        (response) => {
+        (response: any) => {
           console.log('SOAP Response:', response);
           window.alert('Success: Signature posting created successfully.');
+
+          this.formDataService.setPostingID(response.PostingID);
+          // add new list entry using form data
         },
         (error) => {
           console.error('SOAP Error:', error);

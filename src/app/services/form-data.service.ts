@@ -23,4 +23,8 @@ export class FormDataService {
   setPdfDocument(pdfDocument: any) {
     FormDataService.formData.pdfDocument = pdfDocument;
   }
+
+  setPostingID(postingID: number) {
+    FormDataService.formData.PostingID = postingID;
+  }
 }
