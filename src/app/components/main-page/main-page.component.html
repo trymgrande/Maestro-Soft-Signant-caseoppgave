@@ -2,8 +2,36 @@
   <button (click)="navigateToSignatureForm()">
     Create New Signature Posting
   </button>
-  <button (click)="getPostingStatus()">Get Posting Status</button>
-  <button (click)="downloadFile()" [disabled]="postingStatus !== 'Completed'">
-    Download Signed PDF
-  </button>
+  <h2>Signature Postings</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Posting Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let posting of signaturePostings">
+        <td>{{ posting.title }}</td>
+        <td>{{ posting.description }}</td>
+        <td>{{ posting.postingStatus }}</td>
+        <td>
+          <button (click)="getPostingStatus(posting.postingID)">
+            Update Posting Status
+          </button>
+        </td>
+        <td>
+          <button
+            (click)="downloadFile(posting.postingID)"
+            [disabled]="posting.postingStatus !== 'Completed'"
+          >
+            Download Signed PDF
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormDataService } from './form-data.service';
+import { SignaturePostingsService } from '../services/signature-postings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ export class SignantService {
 
   constructor(
     private http: HttpClient,
-    private formDataService: FormDataService
+    private formDataService: FormDataService,
+    private signaturePostingsService: SignaturePostingsService
   ) {}
 
   createSignaturePosting(
@@ -118,8 +120,18 @@ export class SignantService {
           console.log('SOAP Response:', response);
           window.alert('Success: Signature posting created successfully.');
 
-          this.formDataService.setPostingID(response.PostingID);
           // add new list entry using form data
+          const newPosting = {
+            success: response.success,
+            message: response.message,
+            errorCode: response.errorCode,
+            postingID: response.PostingID,
+            title: title,
+            description: description,
+            postingStatus: '', // not yet available
+          };
+
+          this.signaturePostingsService.addSignaturePosting(newPosting);
         },
         (error) => {
           console.error('SOAP Error:', error);
