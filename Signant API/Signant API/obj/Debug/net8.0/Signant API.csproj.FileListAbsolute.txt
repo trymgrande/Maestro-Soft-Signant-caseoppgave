@@ -1,0 +1,2 @@
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.csproj.AssemblyReference.cache
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.GeneratedMSBuildEditorConfig.editorconfig
