@@ -1,3 +1,4 @@
+// todo move to models
 export interface SignaturePosting {
   success: boolean;
   message: string;

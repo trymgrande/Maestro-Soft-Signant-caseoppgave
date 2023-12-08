@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using ServiceReference1;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Signant_API.Controllers
 {
@@ -10,7 +12,7 @@ namespace Signant_API.Controllers
     [ApiController]
     public class SignantController : ControllerBase
     {
-        private readonly IPostingsService _postingsService; // Assuming this is the service client name
+        public readonly IPostingsService _postingsService; // Assuming this is the service client name
 
         public SignantController(IPostingsService postingsService)
         {
@@ -23,7 +25,8 @@ namespace Signant_API.Controllers
         {
             try
             {
-                var response = await _postingsService.CreateSignPostingAsync("DistributorID", "AccessCode", postData);
+                Console.WriteLine("request received");
+                var response = await _postingsService.CreateSignPostingAsync("DEV_WSTEST", "DEVACCESSCODE", postData);
                 return Ok(response); // Or handle the response as needed
             }
             catch (Exception ex)
@@ -39,7 +42,7 @@ namespace Signant_API.Controllers
         {
             try
             {
-                var response = await _postingsService.GetPostingStatusAsync("DistributorID", "AccessCode", postingId);
+                var response = await _postingsService.GetPostingStatusAsync("DEV_WSTEST", "DEVACCESSCODE", postingId);
                 return Ok(response); // Or handle the response as needed
             }
             catch (Exception ex)
@@ -55,8 +58,8 @@ namespace Signant_API.Controllers
         {
             try
             {
-                var response = await _postingsService.DownloadAttachmentAsync("DistributorID", "AccessCode", postingId, attachmentId, "AccessToken");
-                return File(response.AttachmentFile, "application/pdf", response.FileName); // Assuming the file is a PDF
+                var response = await _postingsService.DownloadAttachmentAsync("DEV_WSTEST", "DEVACCESSCODE", postingId, attachmentId, "AccessToken");
+                return File(response.AttachmentFile, "application/pdf", response.FileName);
             }
             catch (Exception ex)
             {

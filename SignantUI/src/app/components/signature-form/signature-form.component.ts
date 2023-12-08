@@ -4,7 +4,12 @@ import { SignatureFormModel } from '../../models/form.model';
 import { FormDataService } from '../../services/form-data.service';
 import { SignantService } from '../../services/signant.service';
 import { Router } from '@angular/router';
-
+import {
+  Posting,
+  PostingAdmin,
+  Recipient,
+  Attachment,
+} from '../../models/signant.models';
 @Component({
   selector: 'app-signature-form',
   templateUrl: './signature-form.component.html',
@@ -12,6 +17,20 @@ import { Router } from '@angular/router';
 })
 export class SignatureFormComponent implements OnInit {
   signatureForm!: FormGroup;
+
+  posting: Posting = {
+    title: '',
+    description: '',
+    activeTo: new Date(new Date().setDate(new Date().getDate() + 30)),
+    willBeDeletedDateTime: new Date(
+      new Date().setDate(new Date().getDate() + 31)
+    ),
+    useWidget: true,
+    autoActivate: true,
+    attachments: [],
+    recipients: [],
+    postingAdmins: [],
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -21,6 +40,8 @@ export class SignatureFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.addDefaultAdminAndRecipient();
+
     this.signatureForm = this.fb.group({
       recipientName: ['', Validators.required],
       recipientEmail: ['', [Validators.required, Validators.email]],
@@ -29,7 +50,83 @@ export class SignatureFormComponent implements OnInit {
     });
   }
 
-  async onSubmit(): Promise<void> {
+  addDefaultAdminAndRecipient() {
+    // Adding default PostingAdmin
+    const admin: PostingAdmin = {
+      email: 'example@company.com',
+      mobileNumber: '11000000',
+      name: 'Ola Nordmann',
+      notifyByEmail: true,
+      ssn: '0000000000',
+    };
+    this.posting.postingAdmins.push(admin);
+
+    // Adding default Recipient
+    const recipient: Recipient = {
+      email: 'example@company.com',
+      mobileNumber: '12000000',
+      name: 'Nora Nordmann',
+      priority: 0,
+      notifyByEmail: true,
+    };
+    this.posting.recipients.push(recipient);
+  }
+
+  // new
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    console.log(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (fileEvent) => {
+        if (fileEvent.target) {
+          // const binaryData = fileEvent.target.result as ArrayBuffer;
+          // console.log(binaryData);
+          const attachment: Attachment = {
+            actionType: 'Sign',
+            description: 'Description of the file',
+            file: file,
+            fileName: file.name,
+          };
+          this.posting.attachments.push(attachment);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  // old
+  // onFileChange(event: any): void {
+  //   const fileInput = event.target;
+  //   const file = fileInput.files && fileInput.files[0];
+
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (fileEvent) => {
+  //       if (fileEvent.target) {
+  //         const binaryData = fileEvent.target.result as ArrayBuffer;
+  //         console.log(binaryData);
+  //         this.formDataService.setPdfDocument(binaryData);
+  //       }
+  //     };
+
+  //     reader.readAsArrayBuffer(file);
+  //   }
+  // }
+
+  onSubmit() {
+    this.signantService.createPosting(this.posting).subscribe(
+      (response: any) => {
+        console.log('Posting created:', response);
+      },
+      (error: any) => {
+        console.error('Error creating posting:', error);
+      }
+    );
+  }
+
+  async onSubmitOld(): Promise<void> {
     if (this.signatureForm.valid) {
       const formData: SignatureFormModel = {
         recipientName: this.signatureForm.get('recipientName')?.value,
@@ -98,24 +195,6 @@ export class SignatureFormComponent implements OnInit {
 
       // reset the form after submission
       this.signatureForm.reset();
-    }
-  }
-
-  onFileChange(event: any): void {
-    const fileInput = event.target;
-    const file = fileInput.files && fileInput.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (fileEvent) => {
-        if (fileEvent.target) {
-          const binaryData = fileEvent.target.result as ArrayBuffer;
-          console.log(binaryData);
-          this.formDataService.setPdfDocument(binaryData);
-        }
-      };
-
-      reader.readAsArrayBuffer(file);
     }
   }
 

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormDataService } from './form-data.service';
 import { SignaturePostingsService } from '../services/signature-postings.service';
+import { Posting } from '../models/signant.models';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,13 @@ export class SignantService {
     private formDataService: FormDataService,
     private signaturePostingsService: SignaturePostingsService
   ) {}
+
+  createPosting(posting: Posting) {
+    return this.http.post(
+      'https://localhost:7168/api/Signant/CreatePosting',
+      posting
+    );
+  }
 
   createSignaturePosting(
     distributorID: string,

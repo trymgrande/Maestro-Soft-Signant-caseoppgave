@@ -1,2 +1,75 @@
 C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.csproj.AssemblyReference.cache
 C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\appsettings.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Connected Services\ServiceReference1\ConnectedService.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Signant API.exe
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Signant API.deps.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Signant API.runtimeconfig.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Signant API.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Signant API.pdb
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.WsTrust.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.Saml.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.IdentityModel.Xml.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.Private.ServiceModel.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.Duplex.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.Federation.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.Http.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.NetTcp.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.Primitives.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\System.ServiceModel.Security.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\cs\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\de\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\es\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\fr\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\it\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\ja\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\ko\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\pl\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\pt-BR\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\ru\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\tr\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\zh-Hans\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\zh-Hant\System.Private.ServiceModel.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\cs\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\de\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\es\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\fr\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\it\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\ja\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\ko\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\pl\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\pt-BR\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\ru\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\tr\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\zh-Hans\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\bin\Debug\net8.0\zh-Hant\System.ServiceModel.Federation.resources.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.AssemblyInfoInputs.cache
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.AssemblyInfo.cs
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.csproj.CoreCompileInputs.cache
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.sourcelink.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets\msbuild.Signant API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets\msbuild.build.Signant API.props
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Signant API.props
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Signant API.props
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\scopedcss\bundle\Signant API.styles.css
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.csproj.CopyComplete
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\refint\Signant API.dll
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.pdb
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\Signant API.genruntimeconfig.cache
+C:\Users\trymg\OneDrive\Documents\Signant-UI\Signant API\Signant API\obj\Debug\net8.0\ref\Signant API.dll
