@@ -29,7 +29,7 @@ export class MainPageComponent implements OnInit {
 
   getPostingStatus(postingID: number): void {
     this.signantService
-      .getPostingStatus('DEV_WSTEST', 'DEVACCESSCODE', postingID)
+      .getPostingStatusOld('DEV_WSTEST', 'DEVACCESSCODE', postingID)
       .subscribe(
         (response: any) => {
           console.log('Posting Status:', response.Status);
@@ -52,7 +52,7 @@ export class MainPageComponent implements OnInit {
         .postingStatus === 'Completed'
     ) {
       this.signantService
-        .downloadAttachment('DEV_WSTEST', 'DEVACCESSCODE', postingID)
+        .downloadAttachmentOld('DEV_WSTEST', 'DEVACCESSCODE', postingID)
         .subscribe(
           (downloadedFile: any) => {
             console.log('Downloaded File:', downloadedFile);

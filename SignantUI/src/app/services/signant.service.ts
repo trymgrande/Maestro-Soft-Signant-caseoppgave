@@ -1,30 +1,66 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormDataService } from './form-data.service';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { SignaturePostingsService } from '../services/signature-postings.service';
 import { Posting } from '../models/signant.models';
-
 @Injectable({
   providedIn: 'root',
 })
 export class SignantService {
-  // private signantApiUrl = 'http://tempuri.org/IPostingsService/CreateSignPosting';
+  private baseUrl = 'https://localhost:7168/api/Signant/';
 
   constructor(
     private http: HttpClient,
-    private formDataService: FormDataService,
     private signaturePostingsService: SignaturePostingsService
   ) {}
 
   createPosting(posting: Posting) {
-    return this.http.post(
-      'https://localhost:7168/api/Signant/CreatePosting',
-      posting
+    return this.http.post(`${this.baseUrl}CreatePosting`, posting).subscribe(
+      (data) => {
+        console.log('Response:', data);
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+
+    // const newPosting = {
+    //   success: response.success,
+    //   message: response.message,
+    //   errorCode: response.errorCode,
+    //   postingID: response.PostingID,
+    //   title: title,
+    //   description: description,
+    //   postingStatus: '', // not yet available
+    // };
+
+    // this.signaturePostingsService.addSignaturePosting(newPosting);
+  }
+
+  getPostingStatus(postingId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}GetPostingStatus/${postingId}`);
+  }
+
+  downloadAttachment(
+    postingId: string,
+    attachmentId: string
+  ): Observable<Blob> {
+    return this.http.get(
+      `${this.baseUrl}DownloadAttachment/${postingId}/${attachmentId}`,
+      {
+        responseType: 'blob', // This is important for file downloads
+      }
     );
   }
 
-  createSignaturePosting(
+  // newGetPostingStatus(posting: Posting, postingId: number) {
+  //   return this.http.get(
+  //     `https://localhost:7168/api/Signant/GetPostingStatus/${postingId}`,
+  //     posting
+  //   );
+  // }
+
+  createSignaturePostingOld(
     distributorID: string,
     accessCode: string,
     // distributorSystemID: string,
@@ -150,7 +186,7 @@ export class SignantService {
       );
   }
 
-  getPostingStatus(
+  getPostingStatusOld(
     distributorID: string,
     accessCode: string,
     postingID: number
@@ -187,7 +223,7 @@ export class SignantService {
     );
   }
 
-  downloadAttachment(
+  downloadAttachmentOld(
     distributorID: string,
     accessCode: string,
     postingID: number
