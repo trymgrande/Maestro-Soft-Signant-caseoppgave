@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SignaturePosting } from '../components/signature-posting/signature-posting.interface';
+import { SignaturePostingResponse } from '../components/signature-posting/signature-posting.interface';
 @Injectable({
   providedIn: 'root',
 })
 export class SignaturePostingsService {
-  private signaturePostings: SignaturePosting[] = [
+  private signaturePostings: SignaturePostingResponse[] = [
     // contains some test data for demonstration purposes
     {
       success: true,
@@ -26,11 +26,11 @@ export class SignaturePostingsService {
     },
   ];
 
-  addSignaturePosting(posting: SignaturePosting): void {
+  addSignaturePosting(posting: SignaturePostingResponse): void {
     this.signaturePostings.push(posting);
   }
 
-  getSignaturePostings(): SignaturePosting[] {
+  getSignaturePostings(): SignaturePostingResponse[] {
     return this.signaturePostings;
   }
 
@@ -41,7 +41,7 @@ export class SignaturePostingsService {
     this.signaturePostings[postingIndex].postingStatus = postingStatus;
   }
 
-  getSignaturePosting(postingID: number): SignaturePosting {
+  getSignaturePosting(postingID: number): SignaturePostingResponse {
     //@ts-ignore
     return this.signaturePostings.filter(
       (posting) => posting.postingID === postingID

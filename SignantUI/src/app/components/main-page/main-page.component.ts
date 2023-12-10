@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignantService } from '../../services/signant.service';
 import { SignaturePostingsService } from '../../services/signature-postings.service';
-import { SignaturePosting } from '../signature-posting/signature-posting.interface';
+import { SignaturePostingResponse } from '../signature-posting/signature-posting.interface';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -10,7 +10,7 @@ import { SignaturePosting } from '../signature-posting/signature-posting.interfa
 })
 export class MainPageComponent implements OnInit {
   postingStatus: string = ''; // todo use value in signaturepostingservice instead
-  signaturePostings: SignaturePosting[] = [];
+  signaturePostings: SignaturePostingResponse[] = [];
 
   constructor(
     private router: Router,

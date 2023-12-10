@@ -14,7 +14,7 @@ export class SignantService {
     private signaturePostingsService: SignaturePostingsService
   ) {}
 
-  createPosting(posting: Posting) {
+  createPosting(posting: any) {
     return this.http.post(`${this.baseUrl}CreatePosting`, posting).subscribe(
       (data) => {
         console.log('Response:', data);

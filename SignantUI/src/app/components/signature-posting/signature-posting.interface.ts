@@ -1,5 +1,5 @@
 // TODO move to models
-export interface SignaturePosting {
+export interface SignaturePostingResponse {
   activationUrl?: any;
   attachmentInfos?: any;
   message: string;
