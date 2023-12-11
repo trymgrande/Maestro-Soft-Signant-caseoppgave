@@ -17,7 +17,7 @@ export interface Recipient {
 export interface Attachment {
   actionType: string; // TODO ActionType.Sign?
   description: string;
-  file: any; // TODO is empty {}
+  file: any;
   fileName: string;
 }
 

@@ -6,40 +6,32 @@ import { SignaturePostingResponse } from '../components/signature-posting/signat
   providedIn: 'root',
 })
 export class SignaturePostingsService {
-  private signaturePostings: SignaturePostingResponse[] = [
-    // TODO convert to SignaturePostingResponse[]
-    // contains some test data for demonstration purposes
-    {
-      success: true,
-      message: 'Test Message',
-      errorCode: 1,
-      postingID: 'f75108a5-3daf-4514-ba0b-a6d0c8e2a264',
-      title: 'Test Title',
-      description: 'Test description.',
-      status: 'Completed',
-      attachmentInfos: [
-        {
-          attachmentID: '8fa80739-1e89-4716-bcbf-674c1c8137e1',
-          description: 'pdf desc',
-          fileName: 'Yr.pdf',
-          groupID: '378583ad-6530-4c8a-932a-b311dfbc8143',
-        },
-      ],
-    },
-    {
-      success: true,
-      message: 'Test Message 2',
-      errorCode: 0,
-      postingID: 'fjdlksfj',
-      title: 'Test Title 2',
-      description: 'Test description 2.',
-      status: 'Sent',
-      attachmentInfos: 'attachmentInfos',
-    },
-  ];
+  private readonly storageKey = 'signaturePostings';
+
+  // TODO convert to SignaturePostingResponse[]
+  private signaturePostings: SignaturePostingResponse[] = [];
+
+  constructor() {
+    this.loadInitialData();
+  }
+
+  private loadInitialData() {
+    const storedPostings = localStorage.getItem(this.storageKey);
+    if (storedPostings) {
+      this.signaturePostings = JSON.parse(storedPostings);
+    }
+  }
 
   addSignaturePosting(posting: any): void {
     this.signaturePostings.push(posting);
+    this.updateLocalStorage();
+  }
+
+  private updateLocalStorage() {
+    localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(this.signaturePostings)
+    );
   }
 
   getSignaturePostings(): SignaturePostingResponse[] {
@@ -47,7 +39,7 @@ export class SignaturePostingsService {
   }
 
   setSignaturePostingStatus(postingID: string, postingStatus: number): void {
-    let postingStatusReadableDict = {
+    const postingStatusReadable = {
       0: 'Sent',
       1: 'Completed',
       2: 'CompletedPartially',
@@ -58,7 +50,9 @@ export class SignaturePostingsService {
       (posting) => posting.postingID === postingID
     );
     this.signaturePostings[postingIndex].status = //@ts-ignore
-      postingStatusReadableDict[postingStatus];
+      postingStatusReadable[postingStatus];
+
+    this.updateLocalStorage();
   }
 
   getSignaturePosting(postingID: string): SignaturePostingResponse {

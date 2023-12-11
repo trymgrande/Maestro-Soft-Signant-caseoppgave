@@ -55,7 +55,7 @@ namespace Signant_API.Controllers
 
                     Attachment attachment = new Attachment
                     {
-                        ActionType = ActionType.Sign, // TODO should this always be Sign?
+                        ActionType = ActionType.Sign, // TODO get from attachment parameter
                         File = fileData,
                         FileName = file.FileName
                     };
@@ -110,4 +110,3 @@ namespace Signant_API.Controllers
         }
     }
 }
- 

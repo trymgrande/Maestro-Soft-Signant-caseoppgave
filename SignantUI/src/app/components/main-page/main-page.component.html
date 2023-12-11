@@ -3,7 +3,8 @@
     Create New Signature Posting
   </button>
   <h2>Signature Postings</h2>
-  <table>
+
+  <table *ngIf="signaturePostings.length > 0; else noPostingsTemplate">
     <thead>
       <tr>
         <th>Title</th>
@@ -39,4 +40,8 @@
       </tr>
     </tbody>
   </table>
+
+  <ng-template #noPostingsTemplate>
+    <p>No signature postings created.</p>
+  </ng-template>
 </div>

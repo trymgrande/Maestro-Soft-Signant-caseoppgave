@@ -34,37 +34,20 @@ export class SignatureFormComponent implements OnInit {
 
   onFileChange(event: any) {
     const file = event.target.files[0];
-    console.log(file);
 
     if (file) {
-      // TODO remove unused code
-      let formData = new FormData();
-      formData.append('file', file, file.name);
-      formData.append('file.test', 'teststring');
-
-      const reader = new FileReader();
-      reader.onload = (fileEvent) => {
-        if (fileEvent.target) {
-          // const binaryData = fileEvent.target.result as ArrayBuffer;
-          // console.log(binaryData);
-
-          const attachment: Attachment = {
-            actionType: 'Sign',
-            description: 'Description of the file',
-            file: file,
-            fileName: file.name,
-          };
-          this.attachment = attachment;
-        }
+      const attachment: Attachment = {
+        actionType: 'Sign',
+        description: 'Description of the file',
+        file: file,
+        fileName: file.name,
       };
-      reader.readAsArrayBuffer(file);
+      this.attachment = attachment;
     }
   }
 
   onSubmit() {
-    if (this.signatureForm.valid || true) {
-      // TODO remove true
-
+    if (this.signatureForm.valid) {
       const recipientName =
         this.signatureForm.get('recipientName')?.value ?? '';
       const recipientEmail =
@@ -113,11 +96,8 @@ export class SignatureFormComponent implements OnInit {
           formData.append(key, formValues[key]);
         }
       }
-      console.log(formData.get('attachments'));
 
       formData.append('attachment[file]', this.attachment?.file);
-
-      console.log(formData.get('attachments'));
 
       this.signantService.createPosting(formData);
 

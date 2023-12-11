@@ -18,7 +18,7 @@ export class SignantService {
   createPosting(posting: FormData) {
     return this.http.post(`${this.baseUrl}CreatePosting`, posting).subscribe(
       (response: any) => {
-        console.log('Response:', response);
+        console.log('CreatePosting response:', response);
         // add new list entry using form data
         const newPosting = {
           success: response.success,
@@ -27,11 +27,12 @@ export class SignantService {
           postingID: response.postingID,
           title: posting.get('title'),
           description: posting.get('description'),
-          postingStatus: '', // not yet available TODO make default 'Sent'?
+          postingStatus: 'Sent',
           attachmentInfos: response.attachmentInfos,
         };
 
         this.signaturePostingsService.addSignaturePosting(newPosting);
+        alert('Signature posting created successfully');
       },
       (error) => {
         console.error('Error:', error);

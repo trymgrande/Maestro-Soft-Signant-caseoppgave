@@ -29,12 +29,11 @@ export class MainPageComponent implements OnInit {
   getPostingStatus(postingID: string): void {
     this.signantService.getPostingStatus(postingID).subscribe(
       (response: any) => {
-        console.log('Posting Status:', response.status);
-        alert('Posting Status: ' + response.status);
         this.signaturePostingsService.setSignaturePostingStatus(
           postingID,
           response.status
         );
+        alert('Posting status updated');
       },
       (error: any) => {
         console.error('Error getting posting status:', error);
@@ -50,15 +49,13 @@ export class MainPageComponent implements OnInit {
     ) {
       this.signantService.downloadAttachment(postingID, attachmentId).subscribe(
         (downloadedFile: any) => {
-          console.log('Downloaded File:', downloadedFile);
-
           const blob = new Blob([downloadedFile], { type: 'application/pdf' }); // adjust the MIME type as needed
           const url = window.URL.createObjectURL(blob);
 
           // Create a link to download
           const a = document.createElement('a');
           a.href = url;
-          a.download = 'downloadedFile.pdf'; // TODO change to actual name
+          a.download = `Signed_document_${attachmentId}`;
           document.body.appendChild(a);
           a.click();
 
