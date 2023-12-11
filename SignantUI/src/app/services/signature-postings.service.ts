@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SignaturePostingResponse } from '../components/signature-posting/signature-posting.interface';
+
+// TODO move to forms?
 @Injectable({
   providedIn: 'root',
 })
@@ -14,8 +16,15 @@ export class SignaturePostingsService {
       postingID: 'f75108a5-3daf-4514-ba0b-a6d0c8e2a264',
       title: 'Test Title',
       description: 'Test description.',
-      postingStatus: 'Completed',
-      attachmentInfos: 'attachmentInfos',
+      status: 'Completed',
+      attachmentInfos: [
+        {
+          attachmentID: '8fa80739-1e89-4716-bcbf-674c1c8137e1',
+          description: 'pdf desc',
+          fileName: 'Yr.pdf',
+          groupID: '378583ad-6530-4c8a-932a-b311dfbc8143',
+        },
+      ],
     },
     {
       success: true,
@@ -24,7 +33,7 @@ export class SignaturePostingsService {
       postingID: 'fjdlksfj',
       title: 'Test Title 2',
       description: 'Test description 2.',
-      postingStatus: 'Sent',
+      status: 'Sent',
       attachmentInfos: 'attachmentInfos',
     },
   ];
@@ -48,14 +57,14 @@ export class SignaturePostingsService {
     let postingIndex = this.signaturePostings.findIndex(
       (posting) => posting.postingID === postingID
     );
-    this.signaturePostings[postingIndex].postingStatus = //@ts-ignore
+    this.signaturePostings[postingIndex].status = //@ts-ignore
       postingStatusReadableDict[postingStatus];
   }
 
   getSignaturePosting(postingID: string): SignaturePostingResponse {
     //@ts-ignore
     return this.signaturePostings.filter(
-      (posting) => posting.postingID === postingID
-    );
+      (posting) => posting.postingID == postingID
+    )[0];
   }
 }

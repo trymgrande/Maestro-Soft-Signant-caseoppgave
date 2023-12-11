@@ -17,7 +17,7 @@
       <tr *ngFor="let posting of signaturePostings">
         <td>{{ posting.title }}</td>
         <td>{{ posting.description }}</td>
-        <td>{{ posting.postingStatus }}</td>
+        <td>{{ posting.status }}</td>
         <td>
           <button (click)="getPostingStatus(posting.postingID)">
             Update Posting Status
@@ -28,10 +28,10 @@
             (click)="
               downloadFile(
                 posting.postingID,
-                posting.attachmentInfos.attachmentID
+                posting.attachmentInfos[0].attachmentID
               )
             "
-            [disabled]="posting.postingStatus !== 'Completed'"
+            [disabled]="posting.status !== 'Completed'"
           >
             Download Signed PDF
           </button>

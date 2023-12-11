@@ -8,5 +8,7 @@ export interface SignaturePostingResponse {
   attachmentInfos: any;
   title: string;
   description: string;
-  postingStatus?: string;
+  status: string;
 }
+
+// todo addd attachmentinfos interface

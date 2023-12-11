@@ -9,7 +9,6 @@ import { SignaturePostingResponse } from '../signature-posting/signature-posting
   styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-  postingStatus: string = ''; // todo use value in signaturepostingservice instead
   signaturePostings: SignaturePostingResponse[] = [];
 
   constructor(
@@ -46,13 +45,26 @@ export class MainPageComponent implements OnInit {
 
   downloadFile(postingID: string, attachmentId: string): void {
     if (
-      this.signaturePostingsService.getSignaturePosting(postingID)
-        .postingStatus === 'Completed'
+      this.signaturePostingsService.getSignaturePosting(postingID).status ==
+      'Completed'
     ) {
       this.signantService.downloadAttachment(postingID, attachmentId).subscribe(
         (downloadedFile: any) => {
           console.log('Downloaded File:', downloadedFile);
-          alert('Downloaded File: ' + downloadedFile);
+
+          const blob = new Blob([downloadedFile], { type: 'application/pdf' }); // adjust the MIME type as needed
+          const url = window.URL.createObjectURL(blob);
+
+          // Create a link to download
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'downloadedFile.pdf'; // TODO change to actual name
+          document.body.appendChild(a);
+          a.click();
+
+          // Clean up
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
         },
         (error) => {
           console.error('Error downloading file:', error);
@@ -61,7 +73,7 @@ export class MainPageComponent implements OnInit {
       );
     } else {
       console.warn('File cannot be downloaded. Posting status is not signed.');
-      alert('File cannot be downloaded. Posting status is not "completed".');
+      alert('File cannot be downloaded. Posting status is not "Completed".');
     }
   }
 }

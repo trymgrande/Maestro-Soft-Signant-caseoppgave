@@ -99,7 +99,7 @@ namespace Signant_API.Controllers
         {
             try
             {
-                var response = await _postingsService.DownloadAttachmentAsync("DEV_WSTEST", "DEVACCESSCODE", postingId, attachmentId, "AccessToken");
+                var response = await _postingsService.DownloadAttachmentAsync("DEV_WSTEST", "DEVACCESSCODE", postingId, attachmentId, null);
                 return File(response.AttachmentFile, "application/pdf", response.FileName);
             }
             catch (Exception ex)

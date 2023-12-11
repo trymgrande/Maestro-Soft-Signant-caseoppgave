@@ -28,7 +28,6 @@ export class SignantService {
           title: posting.get('title'),
           description: posting.get('description'),
           postingStatus: '', // not yet available TODO make default 'Sent'?
-          // attachmentId ?
           attachmentInfos: response.attachmentInfos,
         };
 
@@ -56,6 +55,7 @@ export class SignantService {
     );
   }
 }
+
 // TODO move to models
 interface PostingAdmin {
   Email: string;

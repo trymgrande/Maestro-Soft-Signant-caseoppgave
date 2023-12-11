@@ -80,8 +80,8 @@ export class SignatureFormComponent implements OnInit {
       };
 
       const formValues = {
-        title: 'Title',
-        description: 'Description.',
+        title: 'Test Title',
+        description: message,
         activeTo: new Date(new Date().setDate(new Date().getDate() + 30)),
         willBeDeletedDateTime: new Date(
           new Date().setDate(new Date().getDate() + 31)
