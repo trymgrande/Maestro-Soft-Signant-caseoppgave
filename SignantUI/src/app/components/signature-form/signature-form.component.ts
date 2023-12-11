@@ -37,10 +37,10 @@ export class SignatureFormComponent implements OnInit {
     console.log(file);
 
     if (file) {
+      // TODO remove unused code
       let formData = new FormData();
       formData.append('file', file, file.name);
       formData.append('file.test', 'teststring');
-      // console.log(formData.getAll());
 
       const reader = new FileReader();
       reader.onload = (fileEvent) => {
@@ -114,28 +114,6 @@ export class SignatureFormComponent implements OnInit {
         }
       }
       console.log(formData.get('attachments'));
-
-      // // TODO handle case of multiple attachments?
-      // // todo handle no file exists
-      // [this.attachment].forEach((attachment, index) => {
-      //   if (attachment && attachment.file) {
-      //     formData.set(
-      //       `attachments[0][file]`,
-      //       attachment.file,
-      //       attachment.file.name
-      //     );
-      //     formData.set(`attachments[0][actionType]`, attachment.actionType);
-      //     formData.set(`attachments[0][description]`, attachment.description);
-      //     formData.set(`attachments`, attachment.fileName);
-      //   }
-      // });
-
-      // if (this.attachment) {
-      //   //@ts-ignore
-      //   for (let [key, value] of this.attachment.entries()) {
-      //     formData.append(key, value);
-      //   }
-      // }
 
       formData.append('attachment[file]', this.attachment?.file);
 

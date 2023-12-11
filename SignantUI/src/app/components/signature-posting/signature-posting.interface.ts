@@ -1,11 +1,11 @@
 // TODO move to models
 export interface SignaturePostingResponse {
-  activationUrl?: any;
-  attachmentInfos?: any;
+  success: boolean;
   message: string;
   errorCode: number;
   postingID: string;
-  success: boolean;
+  activationUrl?: any;
+  attachmentInfos: any;
   title: string;
   description: string;
   postingStatus?: string;

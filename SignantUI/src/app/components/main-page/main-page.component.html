@@ -25,7 +25,12 @@
         </td>
         <td>
           <button
-            (click)="downloadFile(posting.postingID)"
+            (click)="
+              downloadFile(
+                posting.postingID,
+                posting.attachmentInfos.attachmentID
+              )
+            "
             [disabled]="posting.postingStatus !== 'Completed'"
           >
             Download Signed PDF
