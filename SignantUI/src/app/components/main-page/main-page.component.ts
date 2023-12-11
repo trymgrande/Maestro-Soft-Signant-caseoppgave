@@ -27,7 +27,7 @@ export class MainPageComponent implements OnInit {
     this.router.navigate(['/signature-form']);
   }
 
-  getPostingStatus(postingID: number): void {
+  getPostingStatus(postingID: string): void {
     this.signantService
       .getPostingStatusOld('DEV_WSTEST', 'DEVACCESSCODE', postingID)
       .subscribe(
@@ -46,7 +46,7 @@ export class MainPageComponent implements OnInit {
       );
   }
 
-  downloadFile(postingID: number): void {
+  downloadFile(postingID: string): void {
     if (
       this.signaturePostingsService.getSignaturePosting(postingID)
         .postingStatus === 'Completed'

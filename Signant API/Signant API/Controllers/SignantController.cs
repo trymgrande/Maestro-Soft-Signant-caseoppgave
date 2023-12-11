@@ -12,29 +12,70 @@ namespace Signant_API.Controllers
     [ApiController]
     public class SignantController : ControllerBase
     {
-        public readonly IPostingsService _postingsService; // Assuming this is the service client name
+        private readonly IPostingsService _postingsService;
 
         public SignantController(IPostingsService postingsService)
         {
-            _postingsService = postingsService; // Inject the Signant service client
+            _postingsService = postingsService;
         }
 
         // POST: api/Signant/CreatePosting
         [HttpPost("CreatePosting")]
-        public async Task<IActionResult> CreatePosting([FromBody] Posting postData)
+        public async Task<IActionResult> CreatePosting([FromForm] IFormCollection form)
         {
             try
             {
-                Console.WriteLine("request received");
-                var response = await _postingsService.CreateSignPostingAsync("DEV_WSTEST", "DEVACCESSCODE", postData);
-                return Ok(response); // Or handle the response as needed
+                // Create a Posting object from the form data
+                Posting posting = new Posting();
+
+                posting.Title = form["title"];
+                posting.Description = form["description"];
+                //posting.ActiveTo = DateTime.Parse(form["activeTo"]);
+                //posting.WillBeDeletedDateTime = DateTime.Parse(form["willBeDeletedDateTime"]);
+                posting.ActiveTo = DateTime.Parse("2024-01-10T09:56:28.051Z");
+                posting.WillBeDeletedDateTime = DateTime.Parse("2024-01-10T09:56:28.051Z");
+                posting.UseWidget = bool.Parse(form["useWidget"]);
+                posting.AutoActivate = bool.Parse(form["autoActivate"]);
+
+                posting.PostingAdmins = Newtonsoft.Json.JsonConvert.DeserializeObject<PostingAdmin[]>(form["postingAdmins"]);
+                posting.Recipients = Newtonsoft.Json.JsonConvert.DeserializeObject<Recipient[]>(form["recipients"]);
+
+                // Handle attachments
+                var attachmentsList = new List<Attachment>();
+
+                foreach (var file in form.Files)
+                {
+                    // Convert the file to a byte array or a stream that tje Posting object can accept
+                    byte[] fileData = null;
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        file.CopyTo(ms);
+                        fileData = ms.ToArray();
+                    }
+
+                    Attachment attachment = new Attachment
+                    {
+                        ActionType = ActionType.Sign, // TODO should this always be Sign?
+                        File = fileData,
+                        FileName = file.FileName
+                    };
+
+                    attachmentsList.Add(attachment);
+                }
+
+                posting.Attachments = attachmentsList.ToArray();
+
+
+                // Call the postingsService with the constructed Posting object
+                var response = await _postingsService.CreateSignPostingAsync("DEV_WSTEST", "DEVACCESSCODE", posting); // TODO move access codes to client
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                // Handle exceptions
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+
 
         // GET: api/Signant/GetPostingStatus/{postingId}
         [HttpGet("GetPostingStatus/{postingId}")]

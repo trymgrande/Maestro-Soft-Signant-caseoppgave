@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { SignaturePostingsService } from '../services/signature-postings.service';
 import { Posting } from '../models/signant.models';
+import { SignaturePostingResponse } from '../components/signature-posting/signature-posting.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,27 +15,27 @@ export class SignantService {
     private signaturePostingsService: SignaturePostingsService
   ) {}
 
-  createPosting(posting: any) {
+  createPosting(posting: FormData) {
     return this.http.post(`${this.baseUrl}CreatePosting`, posting).subscribe(
-      (data) => {
-        console.log('Response:', data);
+      (response: any) => {
+        console.log('Response:', response);
+        // add new list entry using form data
+        const newPosting = {
+          success: response.success,
+          message: response.message,
+          errorCode: response.errorCode,
+          postingID: response.postingID,
+          title: posting.get('title'),
+          description: posting.get('description'),
+          postingStatus: '', // not yet available TODO make default 'Sent'?
+        };
+
+        this.signaturePostingsService.addSignaturePosting(newPosting);
       },
       (error) => {
         console.error('Error:', error);
       }
     );
-
-    // const newPosting = {
-    //   success: response.success,
-    //   message: response.message,
-    //   errorCode: response.errorCode,
-    //   postingID: response.PostingID,
-    //   title: title,
-    //   description: description,
-    //   postingStatus: '', // not yet available
-    // };
-
-    // this.signaturePostingsService.addSignaturePosting(newPosting);
   }
 
   getPostingStatus(postingId: string): Observable<any> {
@@ -189,7 +190,7 @@ export class SignantService {
   getPostingStatusOld(
     distributorID: string,
     accessCode: string,
-    postingID: number
+    postingID: string
   ): Observable<any> {
     const soapRequest = `
       <soapenv:Envelope
@@ -226,7 +227,7 @@ export class SignantService {
   downloadAttachmentOld(
     distributorID: string,
     accessCode: string,
-    postingID: number
+    postingID: string
   ): Observable<any> {
     const soapRequest = `
       <soapenv:Envelope

@@ -5,12 +5,13 @@ import { SignaturePostingResponse } from '../components/signature-posting/signat
 })
 export class SignaturePostingsService {
   private signaturePostings: SignaturePostingResponse[] = [
+    // TODO convert to SignaturePostingResponse[]
     // contains some test data for demonstration purposes
     {
       success: true,
       message: 'Test Message',
       errorCode: 1,
-      postingID: 1,
+      postingID: 'fjdslkj',
       title: 'Test Title',
       description: 'Test description.',
       postingStatus: 'Completed',
@@ -19,14 +20,14 @@ export class SignaturePostingsService {
       success: true,
       message: 'Test Message 2',
       errorCode: 0,
-      postingID: 2,
+      postingID: 'fjdlksfj',
       title: 'Test Title 2',
       description: 'Test description 2.',
       postingStatus: 'Sent',
     },
   ];
 
-  addSignaturePosting(posting: SignaturePostingResponse): void {
+  addSignaturePosting(posting: any): void {
     this.signaturePostings.push(posting);
   }
 
@@ -34,14 +35,14 @@ export class SignaturePostingsService {
     return this.signaturePostings;
   }
 
-  setSignaturePostingStatus(postingID: number, postingStatus: string): void {
+  setSignaturePostingStatus(postingID: string, postingStatus: string): void {
     let postingIndex = this.signaturePostings.findIndex(
       (posting) => posting.postingID === postingID
     );
     this.signaturePostings[postingIndex].postingStatus = postingStatus;
   }
 
-  getSignaturePosting(postingID: number): SignaturePostingResponse {
+  getSignaturePosting(postingID: string): SignaturePostingResponse {
     //@ts-ignore
     return this.signaturePostings.filter(
       (posting) => posting.postingID === postingID

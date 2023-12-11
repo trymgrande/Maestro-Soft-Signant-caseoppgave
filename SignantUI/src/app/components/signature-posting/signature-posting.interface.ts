@@ -4,7 +4,7 @@ export interface SignaturePostingResponse {
   attachmentInfos?: any;
   message: string;
   errorCode: number;
-  postingID: number;
+  postingID: string;
   success: boolean;
   title: string;
   description: string;
