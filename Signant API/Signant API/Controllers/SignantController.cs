@@ -27,7 +27,8 @@ namespace Signant_API.Controllers
             {
                 // Create a Posting object from the form data
                 Posting posting = new Posting();
-
+                // posting.DistributorID = form["distributorId"]; // TODO Posting class needs to support this
+                // posting.AccessCode = form["accessCode"]; // TODO Posting class needs to support this
                 posting.Title = form["title"];
                 posting.Description = form["description"];
                 //posting.ActiveTo = DateTime.Parse(form["activeTo"]);
@@ -37,15 +38,21 @@ namespace Signant_API.Controllers
                 posting.UseWidget = bool.Parse(form["useWidget"]);
                 posting.AutoActivate = bool.Parse(form["autoActivate"]);
 
+
                 posting.PostingAdmins = Newtonsoft.Json.JsonConvert.DeserializeObject<PostingAdmin[]>(form["postingAdmins"]);
                 posting.Recipients = Newtonsoft.Json.JsonConvert.DeserializeObject<Recipient[]>(form["recipients"]);
 
                 // Handle attachments
+                // Deserialize the attachment JSON
+                var attachmentJson = form["attachment"];
+                var attachmentInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<AttachmentInfo>(attachmentJson);
+
+
                 var attachmentsList = new List<Attachment>();
 
                 foreach (var file in form.Files)
                 {
-                    // Convert the file to a byte array or a stream that tje Posting object can accept
+                    // Convert the file to a byte array or a stream that the Posting object can accept
                     byte[] fileData = null;
                     using (var ms = new System.IO.MemoryStream())
                     {
@@ -55,7 +62,7 @@ namespace Signant_API.Controllers
 
                     Attachment attachment = new Attachment
                     {
-                        ActionType = ActionType.Sign, // TODO get from attachment parameter
+                        ActionType = (ActionType)attachmentInfo.ActionType,
                         File = fileData,
                         FileName = file.FileName
                     };
@@ -67,13 +74,19 @@ namespace Signant_API.Controllers
 
 
                 // Call the postingsService with the constructed Posting object
-                var response = await _postingsService.CreateSignPostingAsync("DEV_WSTEST", "DEVACCESSCODE", posting); // TODO move access codes to client
+                var response = await _postingsService.CreateSignPostingAsync("DEV_WSTEST", "DEVACCESSCODE", posting); // TODO avoid plain text and hard coding
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
+        }
+        public class AttachmentInfo
+        {
+            public int ActionType { get; set; }
+            public string Description { get; set; }
+            public string FileName { get; set; }
         }
 
 

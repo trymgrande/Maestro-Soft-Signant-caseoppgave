@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignantService } from '../../services/signant.service';
-import { SignaturePostingsService } from '../../services/signature-postings.service';
-import { SignaturePostingResponse } from '../signature-posting/signature-posting.interface';
+import { SignaturePostingsService } from '../../business-logic/signature-postings.service';
+import { SignaturePostingListElement } from '../../models/signant.models';
+import { PostingStatusResponse } from '../../models/signant.models';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-  signaturePostings: SignaturePostingResponse[] = [];
+  signaturePostings: SignaturePostingListElement[] = [];
 
   constructor(
     private router: Router,
@@ -28,14 +31,14 @@ export class MainPageComponent implements OnInit {
 
   getPostingStatus(postingID: string): void {
     this.signantService.getPostingStatus(postingID).subscribe(
-      (response: any) => {
+      (response: PostingStatusResponse) => {
         this.signaturePostingsService.setSignaturePostingStatus(
           postingID,
           response.status
         );
         alert('Posting status updated');
       },
-      (error: any) => {
+      (error: HttpErrorResponse) => {
         console.error('Error getting posting status:', error);
         alert('Error getting posting status: ' + error);
       }
@@ -48,8 +51,8 @@ export class MainPageComponent implements OnInit {
       'Completed'
     ) {
       this.signantService.downloadAttachment(postingID, attachmentId).subscribe(
-        (downloadedFile: any) => {
-          const blob = new Blob([downloadedFile], { type: 'application/pdf' }); // adjust the MIME type as needed
+        (downloadedFile: Blob) => {
+          const blob = new Blob([downloadedFile], { type: 'application/pdf' });
           const url = window.URL.createObjectURL(blob);
 
           // Create a link to download
@@ -69,7 +72,6 @@ export class MainPageComponent implements OnInit {
         }
       );
     } else {
-      console.warn('File cannot be downloaded. Posting status is not signed.');
       alert('File cannot be downloaded. Posting status is not "Completed".');
     }
   }

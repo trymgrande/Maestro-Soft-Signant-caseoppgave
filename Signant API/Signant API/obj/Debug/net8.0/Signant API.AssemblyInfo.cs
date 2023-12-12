@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Signant API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79200aa7bae3c06fb726e128b49f54ebfeda0e79")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df19e36f47714a4ad219a9e7bc35dbeb35b5ce64")]
 [assembly: System.Reflection.AssemblyProductAttribute("Signant API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Signant API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

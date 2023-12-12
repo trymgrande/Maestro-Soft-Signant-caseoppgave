@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { SignaturePostingResponse } from '../components/signature-posting/signature-posting.interface';
-
-// TODO move to forms?
+import { SignaturePostingListElement } from '../models/signant.models';
+import { Status } from '../models/signant.models';
 @Injectable({
   providedIn: 'root',
 })
 export class SignaturePostingsService {
   private readonly storageKey = 'signaturePostings';
 
-  // TODO convert to SignaturePostingResponse[]
-  private signaturePostings: SignaturePostingResponse[] = [];
+  private signaturePostings: SignaturePostingListElement[] = [];
 
   constructor() {
     this.loadInitialData();
@@ -22,7 +20,7 @@ export class SignaturePostingsService {
     }
   }
 
-  addSignaturePosting(posting: any): void {
+  addSignaturePosting(posting: SignaturePostingListElement): void {
     this.signaturePostings.push(posting);
     this.updateLocalStorage();
   }
@@ -34,29 +32,21 @@ export class SignaturePostingsService {
     );
   }
 
-  getSignaturePostings(): SignaturePostingResponse[] {
+  getSignaturePostings(): SignaturePostingListElement[] {
     return this.signaturePostings;
   }
 
-  setSignaturePostingStatus(postingID: string, postingStatus: number): void {
-    const postingStatusReadable = {
-      0: 'Sent',
-      1: 'Completed',
-      2: 'CompletedPartially',
-      3: 'Expired',
-    };
-
+  setSignaturePostingStatus(postingID: string, postingStatus: Status): void {
     let postingIndex = this.signaturePostings.findIndex(
       (posting) => posting.postingID === postingID
     );
-    this.signaturePostings[postingIndex].status = //@ts-ignore
-      postingStatusReadable[postingStatus];
-
-    this.updateLocalStorage();
+    if (postingIndex !== -1) {
+      this.signaturePostings[postingIndex].status = Status[postingStatus];
+      this.updateLocalStorage();
+    }
   }
 
-  getSignaturePosting(postingID: string): SignaturePostingResponse {
-    //@ts-ignore
+  getSignaturePosting(postingID: string): SignaturePostingListElement {
     return this.signaturePostings.filter(
       (posting) => posting.postingID == postingID
     )[0];
