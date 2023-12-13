@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceReference1;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Signant_API.Controllers
 {
@@ -27,14 +22,14 @@ namespace Signant_API.Controllers
             {
                 // Create a Posting object from the form data
                 Posting posting = new Posting();
-                // posting.DistributorID = form["distributorId"]; // TODO Posting class needs to support this
-                // posting.AccessCode = form["accessCode"]; // TODO Posting class needs to support this
+                // posting.DistributorID = form["distributorId"]; // TODO avoid hard coding
+                // posting.AccessCode = form["accessCode"]; // TODO avoid hard coding
                 posting.Title = form["title"];
                 posting.Description = form["description"];
                 //posting.ActiveTo = DateTime.Parse(form["activeTo"]);
                 //posting.WillBeDeletedDateTime = DateTime.Parse(form["willBeDeletedDateTime"]);
-                posting.ActiveTo = DateTime.Parse("2024-01-10T09:56:28.051Z");
-                posting.WillBeDeletedDateTime = DateTime.Parse("2024-01-10T09:56:28.051Z");
+                posting.ActiveTo = DateTime.Parse("2024-01-10T09:56:28.051Z"); // TODO avoid hard coding
+                posting.WillBeDeletedDateTime = DateTime.Parse("2024-01-10T09:56:28.051Z"); // TODO avoid hard coding
                 posting.UseWidget = bool.Parse(form["useWidget"]);
                 posting.AutoActivate = bool.Parse(form["autoActivate"]);
 
